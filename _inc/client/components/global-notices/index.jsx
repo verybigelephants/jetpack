@@ -48,6 +48,14 @@ const NoticesList = React.createClass( {
 		}
 	},
 
+	handleLocalNoticeDismissClick( notice ) {
+		return () => this.removeNotice( notice );
+	},
+
+	handleReduxNoticeDismissClick( noticeId ) {
+		return () => this.props.removeNotice( noticeId );
+	},
+
 	render() {
 		const noticesRaw = this.props.notices[ this.props.id ] || [];
 		let noticesList = noticesRaw.map( function( notice, index ) {
@@ -58,7 +66,7 @@ const NoticesList = React.createClass( {
 					duration={ notice.duration || null }
 					text={ notice.text }
 					isCompact={ notice.isCompact }
-					onDismissClick={ this.removeNotice.bind( this, notice ) }
+					onDismissClick={ this.handleLocalNoticeDismissClick( notice ) }
 					showDismiss={ notice.showDismiss }
 				>
 					{ notice.button &&
@@ -82,7 +90,7 @@ const NoticesList = React.createClass( {
 					status={ notice.status }
 					duration = { notice.duration || null }
 					showDismiss={ notice.showDismiss }
-					onDismissClick={ this.props.removeNotice.bind( this, notice.noticeId ) }
+					onDismissClick={ this.handleReduxNoticeDismissClick( notice.noticeId ) }
 					text={ notice.text }>
 				</SimpleNotice>
 			);
