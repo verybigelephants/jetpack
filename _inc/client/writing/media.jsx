@@ -56,6 +56,10 @@ const Media = moduleSettingsForm(
 			);
 		},
 
+		handleCarouselDisplayExifChange() {
+			this.updateOptions( 'carousel_display_exif' );
+		},
+
 		render() {
 			const foundCarousel = this.props.isModuleFound( 'carousel' ),
 				foundVideoPress = this.props.isModuleFound( 'videopress' );
@@ -87,7 +91,7 @@ const Media = moduleSettingsForm(
 						<CompactFormToggle
 							checked={ this.state.carousel_display_exif }
 							disabled={ ! isCarouselActive || this.props.isSavingAnyOption( [ 'carousel', 'carousel_display_exif' ] ) }
-							onChange={ () => this.updateOptions( 'carousel_display_exif' ) }>
+							onChange={ this.handleCarouselDisplayExifChange }>
 							<span className="jp-form-toggle-explanation">
 								{
 									__( 'Show photo metadata (Exif) in carousel, when available' )
