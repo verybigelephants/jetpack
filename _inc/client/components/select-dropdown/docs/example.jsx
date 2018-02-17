@@ -40,6 +40,13 @@ const SelectDropdownDemo = React.createClass( {
 		};
 	},
 
+	handleSelectItem: function( childSelected, count ) {
+		return event => {
+			event.preventDefault();
+			this.selectItem( childSelected, count );
+		};
+	},
+
 	toggleButtons: function() {
 		this.setState( { compactButtons: ! this.state.compactButtons } );
 	},
@@ -73,7 +80,7 @@ const SelectDropdownDemo = React.createClass( {
 					<DropdownItem
 						count={ 10 }
 						selected={ this.state.childSelected === 'Published' }
-						onClick={ this.selectItem.bind( this, 'Published', 10 ) }
+						onClick={ this.handleSelectItem( 'Published', 10 ) }
 					>
 						Published
 					</DropdownItem>
@@ -81,14 +88,14 @@ const SelectDropdownDemo = React.createClass( {
 					<DropdownItem
 						count={ 4 }
 						selected={ this.state.childSelected === 'Scheduled' }
-						onClick={ this.selectItem.bind( this, 'Scheduled', 4 ) }
+						onClick={ this.handleSelectItem( 'Scheduled', 4 ) }
 					>
 						Scheduled
 					</DropdownItem>
 
 					<DropdownItem
 						selected={ this.state.childSelected === 'Drafts' }
-						onClick={ this.selectItem.bind( this, 'Drafts', null ) }
+						onClick={ this.handleSelectItem( 'Drafts', null ) }
 					>
 						Drafts
 					</DropdownItem>
@@ -98,7 +105,7 @@ const SelectDropdownDemo = React.createClass( {
 					<DropdownItem
 						count={ 3 }
 						selected={ this.state.childSelected === 'Trashed' }
-						onClick={ this.selectItem.bind( this, 'Trashed', 3 ) }
+						onClick={ this.handleSelectItem( 'Trashed', 3 ) }
 					>
 						Trashed
 					</DropdownItem>
@@ -107,9 +114,7 @@ const SelectDropdownDemo = React.createClass( {
 		);
 	},
 
-	selectItem: function( childSelected, count, event ) {
-		event.preventDefault();
-
+	selectItem: function( childSelected, count ) {
 		this.setState( {
 			childSelected: childSelected,
 			selectedCount: count
